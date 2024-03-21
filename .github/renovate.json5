@@ -7,9 +7,7 @@
     ":disableRateLimiting",
     ":semanticCommits"
   ],
-  ignorePaths: ["_archived/**"],
-  "onboarding": false,
-  "requireConfig": "optional",
+  "ignorePaths": ["_archived/**"],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"]
 }
