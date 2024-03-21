@@ -11,7 +11,7 @@ RUN curl -sSL -o /etc/yum.repos.d/timescale_timescaledb.repo "https://packageclo
     microdnf update -y && \
     microdnf install -y timescaledb-2-loader-postgresql-15-2.14.2 && \
     microdnf install -y timescaledb-2-postgresql-15-2.14.2 && \
-    microdnf install -y timescaledb-toolkit-postgresql-12-1.18.0 && \
+    microdnf install -y timescaledb-toolkit-postgresql-15-1.18.0 && \
     microdnf clean all
 
 USER 26
