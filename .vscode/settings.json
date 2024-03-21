@@ -1,5 +1,8 @@
 {
   "files.associations": {
       "*.json5": "jsonc"
+  },
+  "yaml.schemas": {
+    "https://json.schemastore.org/yamllint.json": "*/metadata.yaml"
   }
 }

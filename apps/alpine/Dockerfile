@@ -14,9 +14,9 @@ ENV GO111MODULE=on \
 ENV PATH $GOPATH/bin:$PATH
 #hadolint ignore=DL3018
 RUN \
-    apk add --no-cache go upx \
-    && go install -ldflags="-s -w" github.com/drone/envsubst/cmd/envsubst@latest \
-    && upx /go/bin/envsubst
+    apk add --no-cache go upx && \
+    go install -ldflags="-s -w" github.com/drone/envsubst/cmd/envsubst@latest && \
+    upx /go/bin/envsubst
 
 FROM docker.io/library/alpine:${VERSION}
 ARG VERSION
@@ -35,28 +35,27 @@ USER root
 #hadolint ignore=DL3018
 RUN \
     apk add --no-cache \
-        ca-certificates catatonit bash \
-        bind-tools coreutils curl iputils jo \
-        jq moreutils nano pv tzdata unzip \
-        util-linux wget
+    ca-certificates catatonit bash \
+    bind-tools coreutils curl iputils jo \
+    jq moreutils nano pv tzdata unzip \
+    util-linux wget
 
 #hadolint ignore=DL3018
 RUN \
-    addgroup -S kah --gid 568 \
-        && adduser -S kah -G kah --uid 568 \
-    && \
-    mkdir -p /config \
-    && chown -R kah:kah /config \
-    && chmod -R 775 /config \
-    && printf "/bin/bash /scripts/greeting.sh\n" > /etc/profile.d/greeting.sh \
-    && printf "umask %d\n" "${UMASK}" > /etc/profile.d/umask.sh \
-    && ln -s /usr/bin/vi   /usr/local/bin/vi \
-    && ln -s /usr/bin/vi   /usr/local/bin/vim \
-    && ln -s /usr/bin/nano /usr/local/bin/nano \
-    && ln -s /usr/bin/nano /usr/local/bin/neovim \
-    && ln -s /usr/bin/nano /usr/local/bin/emacs \
-    && ln -s /usr/bin/catatonit /sbin/tini \
-    && rm -rf /tmp/*
+    addgroup -S ksi --gid 568 && \
+    adduser -S ksi -G ksi --uid 568 && \
+    mkdir -p /config && \
+    chown -R ksi:ksi /config && \
+    chmod -R 775 /config && \
+    printf "/bin/bash /scripts/greeting.sh\n" >/etc/profile.d/greeting.sh && \
+    printf "umask %d\n" "${UMASK}" >/etc/profile.d/umask.sh && \
+    ln -s /usr/bin/vi /usr/local/bin/vi && \
+    ln -s /usr/bin/vi /usr/local/bin/vim && \
+    ln -s /usr/bin/nano /usr/local/bin/nano && \
+    ln -s /usr/bin/nano /usr/local/bin/neovim && \
+    ln -s /usr/bin/nano /usr/local/bin/emacs && \
+    ln -s /usr/bin/catatonit /sbin/tini && \
+    rm -rf /tmp/*
 
 VOLUME ["/config"]
 COPY ./apps/alpine/scripts /scripts

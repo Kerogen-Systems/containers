@@ -14,9 +14,9 @@ ENV GO111MODULE=on \
 ENV PATH $GOPATH/bin:$PATH
 #hadolint ignore=DL3018
 RUN \
-    apk add --no-cache go upx \
-    && go install -ldflags="-s -w" github.com/drone/envsubst/cmd/envsubst@latest \
-    && upx /go/bin/envsubst
+    apk add --no-cache go upx && \
+    go install -ldflags="-s -w" github.com/drone/envsubst/cmd/envsubst@latest && \
+    upx /go/bin/envsubst
 
 FROM docker.io/library/ubuntu:${VERSION}
 ARG VERSION
@@ -37,65 +37,59 @@ ENV \
 USER root
 
 RUN \
-    adduser kah \
-        --uid 568 \
-        --group \
-        --system \
-        --disabled-password \
-        --no-create-home \
-    && \
-    mkdir -p /config \
-    && chown -R kah:kah /config \
-    && chmod -R 775 /config
+    adduser ksi \
+    --uid 568 \
+    --group \
+    --system \
+    --disabled-password \
+    --no-create-home && \
+    mkdir -p /config && \
+    chown -R ksi:ksi /config && \
+    chmod -R 775 /config
 
 WORKDIR /app
 
 # hadolint ignore=DL3008,DL3015
 RUN \
-    set -eux \
-    && echo 'APT::Install-Recommends "false";' >/etc/apt/apt.conf.d/00recommends \
-    && echo 'APT::Install-Suggests "false";' >>/etc/apt/apt.conf.d/00recommends \
-    && echo 'APT::Get::Install-Recommends "false";' >>/etc/apt/apt.conf.d/00recommends \
-    && echo 'APT::Get::Install-Suggests "false";' >>/etc/apt/apt.conf.d/00recommends \
-    && \
-    apt-get -qq update \
-    && \
+    set -eux && \
+    echo 'APT::Install-Recommends "false";' >/etc/apt/apt.conf.d/00recommends && \
+    echo 'APT::Install-Suggests "false";' >>/etc/apt/apt.conf.d/00recommends && \
+    echo 'APT::Get::Install-Recommends "false";' >>/etc/apt/apt.conf.d/00recommends && \
+    echo 'APT::Get::Install-Suggests "false";' >>/etc/apt/apt.conf.d/00recommends && \
+    apt-get -qq update && \
     apt-get install -y \
-        bash \
-        ca-certificates \
-        catatonit \
-        coreutils \
-        curl \
-        dnsutils \
-        iputils-ping \
-        jo \
-        jq \
-        locales \
-        moreutils \
-        pv \
-        tzdata \
-        vim-tiny \
-        unzip \
-        wget \
-    && \
-    localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 \
-    && ln -s /usr/bin/vim.tiny /usr/local/bin/vi \
-    && ln -s /usr/bin/vim.tiny /usr/local/bin/vim \
-    && ln -s /usr/bin/vim.tiny /usr/local/bin/nano \
-    && ln -s /usr/bin/vim.tiny /usr/local/bin/emacs \
-    && ln -s /usr/bin/catatonit /usr/bin/tini \
-    && chown -R kah:kah /app \
-    && \
-    printf "/bin/bash /scripts/greeting.sh\n" >> /etc/bash.bashrc \
-    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
-    && apt-get autoremove -y \
-    && apt-get clean \
-    && \
+    bash \
+    ca-certificates \
+    catatonit \
+    coreutils \
+    curl \
+    dnsutils \
+    iputils-ping \
+    jo \
+    jq \
+    locales \
+    moreutils \
+    pv \
+    tzdata \
+    vim-tiny \
+    unzip \
+    wget && \
+    localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 && \
+    ln -s /usr/bin/vim.tiny /usr/local/bin/vi && \
+    ln -s /usr/bin/vim.tiny /usr/local/bin/vim && \
+    ln -s /usr/bin/vim.tiny /usr/local/bin/nano && \
+    ln -s /usr/bin/vim.tiny /usr/local/bin/emacs && \
+    ln -s /usr/bin/catatonit /usr/bin/tini && \
+    chown -R kah:kah /app && \
+    printf "/bin/bash /scripts/greeting.sh\n" >>/etc/bash.bashrc && \
+    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
+    apt-get autoremove -y && \
+    apt-get clean && \
     rm -rf \
-        /tmp/* \
-        /var/lib/apt/lists/* \
-        /var/cache/apt/* \
-        /var/tmp/*
+    /tmp/* \
+    /var/lib/apt/lists/* \
+    /var/cache/apt/* \
+    /var/tmp/*
 
 ENV LANG en_US.UTF-8
 

@@ -5,20 +5,18 @@ file:
     exists: true
   /scripts/umask.sh:
     exists: true
-  /scripts/vpn.sh:
-    exists: true
   /usr/local/bin/envsubst:
     exists: true
 
 # https://github.com/aelsabbahy/goss/blob/master/docs/manual.md#group
 group:
-  kah:
+  ksi:
     exists: true
     gid: 568
 
 # https://github.com/aelsabbahy/goss/blob/master/docs/manual.md#user
 user:
-  kah:
+  ksi:
     exists: true
     uid: 568
     gid: 568

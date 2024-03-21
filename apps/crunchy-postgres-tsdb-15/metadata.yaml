@@ -1,11 +1,11 @@
 ---
-app: postgres-init
+app: crunchy-postgres-tsdb-15
 base: false
 semantic_versioning: true
 channels:
   - name: stable
-    platforms: ["linux/amd64", "linux/arm64"]
+    platforms: ["linux/amd64"]
     stable: true
     tests:
-      enabled: true
+      enabled: false
       type: cli

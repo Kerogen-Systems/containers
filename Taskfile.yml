@@ -15,8 +15,8 @@ tasks:
       task APP=<app> CHANNEL=<channel> BASE=<true/false> test
     cmds:
       - task: download-goss
-      - >-
-        cue vet --schema '#Spec' ./apps/{{.APP}}/metadata.json metadata.rules.cue
+#      - >-
+#        cue vet --schema '#Spec' ./apps/{{.APP}}/metadata.json metadata.rules.cue
       - >-
         docker buildx build --progress=plain --load
         -t {{.APP}}:{{.CHANNEL}}

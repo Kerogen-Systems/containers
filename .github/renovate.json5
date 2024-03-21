@@ -7,6 +7,7 @@
     ":disableRateLimiting",
     ":semanticCommits"
   ],
+  ignorePaths: ["_archived/**"],
   "onboarding": false,
   "requireConfig": "optional",
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
