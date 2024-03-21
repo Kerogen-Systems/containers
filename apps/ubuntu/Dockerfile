@@ -80,7 +80,7 @@ RUN \
     ln -s /usr/bin/vim.tiny /usr/local/bin/nano && \
     ln -s /usr/bin/vim.tiny /usr/local/bin/emacs && \
     ln -s /usr/bin/catatonit /usr/bin/tini && \
-    chown -R kah:kah /app && \
+    chown -R ksi:ksi /app && \
     printf "/bin/bash /scripts/greeting.sh\n" >>/etc/bash.bashrc && \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
     apt-get autoremove -y && \
